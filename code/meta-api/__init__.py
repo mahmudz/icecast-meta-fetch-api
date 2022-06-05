@@ -1,6 +1,8 @@
+from cmath import log
 import os
 import sys
 from flask import Flask, jsonify, make_response, request
+from flask_cors import CORS
 from .controllers import fetchController
 
 
@@ -8,6 +10,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(SECRET_KEY='dev')
+    CORS(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -28,7 +31,7 @@ def create_app(test_config=None):
 
     @app.route('/', methods=['POST'])
     def fetch():
-        url = request.form.get('url')
+        url = request.json.get('url')
         if url:
             return jsonify(fetchController.fetch_meta(url))
         else:
