@@ -7,7 +7,7 @@ import urllib.request as urllib2
 
 
 def fetch_meta(url):
-    encoding = 'latin1'  # default: iso-8859-1 for mp3 and utf-8 for ogg streams
+    encoding = 'utf-8'  # default: iso-8859-1 for mp3 and utf-8 for ogg streams
     request = urllib2.Request(
         url, headers={'Icy-MetaData': 1}
     )  # request metadata
