@@ -1,6 +1,5 @@
 from cmath import log
 import os
-import sys
 from flask import Flask, jsonify, make_response, request
 from flask_cors import CORS
 from .controllers import fetchController
@@ -9,12 +8,12 @@ from .controllers import fetchController
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(SECRET_KEY='dev')
+    app.config.from_mapping(SECRET_KEY="dev")
     CORS(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
+        app.config.from_pyfile("config.py", silent=True)
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
@@ -25,16 +24,16 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/')
+    @app.route("/")
     def index():
         return "Hello, World!"
 
-    @app.route('/', methods=['POST'])
+    @app.route("/", methods=["POST"])
     def fetch():
-        url = request.json.get('url')
+        url = request.json.get("url")
         if url:
             return jsonify(fetchController.fetch_meta(url))
         else:
-            return make_response(jsonify({'error': 'url not provided'}), 400)
+            return make_response(jsonify({"error": "url not provided"}), 400)
 
     return app

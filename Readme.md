@@ -2,7 +2,9 @@
 
 #### Run the app
 
-- Open terminal in *code* directory
+- Create virtualenv using `python -m venv .venv`
+- Activate virtualenv
+- Install requirements `pip install -r requirements.txt`
 - Copy `.env.example` to `.env`
 - Run the app `flask run -p 7000`
 
